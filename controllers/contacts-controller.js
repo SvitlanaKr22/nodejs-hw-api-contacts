@@ -1,6 +1,6 @@
 const { HttpError } = require("../helpers");
 const Joi = require("joi");
-const contactsService = require("../models/contacts");
+const contactsService = require("../models");
 const { controllerWrapper } = require("../decorators/controllerWrapper");
 const contactSchema = Joi.object({
   name: Joi.string().required(),
