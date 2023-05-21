@@ -2,15 +2,21 @@ const { HttpError } = require("../helpers");
 const Joi = require("joi");
 const contactsService = require("../models");
 const { controllerWrapper } = require("../decorators/controllerWrapper");
+
 const contactSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required(),
   phone: Joi.string().required(),
+  favorite: Joi.boolean(),
+});
+
+const favoriteSchema = Joi.object({
+  favorite: Joi.boolean().required(),
 });
 
 const listContacts = async (_, res) => {
   const contacts = await contactsService.listContacts();
-  res.json(contacts);
+  res.status(200).json(contacts);
 };
 
 const getContactById = async (req, res) => {
@@ -19,7 +25,7 @@ const getContactById = async (req, res) => {
   if (!contact) {
     throw HttpError(404, `Contact with ${contactId} not found`);
   }
-  res.json(contact);
+  res.status(200).json(contact);
 };
 
 const addContact = async (req, res) => {
@@ -57,10 +63,32 @@ const updateContact = async (req, res) => {
   res.json(contact);
 };
 
+const updateStatusContact = async (req, res) => {
+  const { body } = req;
+
+  if (!Object.keys(body).length) {
+    throw HttpError(400, `missing field favorite`);
+  }
+
+  const { contactId } = req.params;
+
+  const { error } = favoriteSchema.validate(body);
+  if (error) {
+    throw HttpError(400, error.message);
+  }
+
+  const contact = await contactsService.updateStatusContact(contactId, body);
+  if (!contact) {
+    throw HttpError(404, `Contact with ${contactId} not found`);
+  }
+  res.status(200).json(contact);
+};
+
 module.exports = {
   listContacts: controllerWrapper(listContacts),
   getContactById: controllerWrapper(getContactById),
   addContact: controllerWrapper(addContact),
   removeContact: controllerWrapper(removeContact),
   updateContact: controllerWrapper(updateContact),
+  updateStatusContact: controllerWrapper(updateStatusContact),
 };

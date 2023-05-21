@@ -31,11 +31,19 @@ async function updateContact(contactId, data) {
   );
   return result;
 }
-//updateStatusContact(contactId, body);
+
+async function updateStatusContact(contactId, body) {
+  const result = await Contact.findByIdAndUpdate(contactId, body, {
+    new: true,
+  });
+  return result;
+}
+
 module.exports = {
   listContacts,
   getContactById,
   removeContact,
   addContact,
   updateContact,
+  updateStatusContact,
 };
