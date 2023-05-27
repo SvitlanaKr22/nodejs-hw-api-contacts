@@ -1,6 +1,6 @@
 const { HttpError } = require("../../helpers");
 const Joi = require("joi");
-const contactsService = require("../../models");
+const contactsService = require("../../models/service");
 //const { model } = require("mongoose");
 
 const favoriteSchema = Joi.object({
