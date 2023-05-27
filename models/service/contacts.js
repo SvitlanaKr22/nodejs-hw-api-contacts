@@ -1,7 +1,7 @@
 const Contact = require("../schemas/contact");
 
-async function listContacts() {
-  const data = await Contact.find();
+async function listContacts(skip, limit) {
+  const data = await Contact.find(null, null, { skip, limit });
   return data;
 }
 

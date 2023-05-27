@@ -29,11 +29,19 @@ function createToken(id) {
 async function addToken(id, token) {
   return await User.findByIdAndUpdate(id, { token });
 }
+async function findUser(id) {
+  return await User.findById(id);
+}
 
+async function deleteToken(id) {
+  return await User.findByIdAndUpdate(id, { token: "" });
+}
 module.exports = {
   addUser,
   findEmailUser,
   controlPassword,
   createToken,
   addToken,
+  findUser,
+  deleteToken,
 };

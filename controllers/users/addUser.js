@@ -1,6 +1,7 @@
 const { userSchema } = require("../../models/schemas/user");
 const { usersService } = require("../../models/service");
 const { HttpError } = require("../../helpers");
+
 const addUser = async (req, res, next) => {
   const { error } = userSchema.validate(req.body);
 
