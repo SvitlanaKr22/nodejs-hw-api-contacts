@@ -8,7 +8,7 @@ const contactSchema = new Schema(
     },
     email: {
       type: String,
-      require: true,
+      required: true,
       match: /.+@.+\..+/i,
     },
     phone: {
@@ -18,6 +18,10 @@ const contactSchema = new Schema(
     favorite: {
       type: Boolean,
       default: false,
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
     },
   },
   { versionKey: false, timestamps: true }

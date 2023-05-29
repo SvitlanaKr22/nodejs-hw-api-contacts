@@ -1,6 +1,6 @@
 const Joi = require("joi");
 const { HttpError } = require("../../helpers");
-const contactsService = require("../../models");
+const { contactsService } = require("../../models/service");
 
 const contactSchema = Joi.object({
   name: Joi.string().required(),
@@ -13,7 +13,8 @@ const addContact = async (req, res) => {
   if (error) {
     throw HttpError(400, error.message);
   }
-  const newContact = await contactsService.addContact(req.body);
+  const { _id: owner } = req.user;
+  const newContact = await contactsService.addContact({ ...req.body, owner });
   res.status(201).json(newContact);
 };
 
