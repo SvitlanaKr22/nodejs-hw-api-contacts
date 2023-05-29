@@ -1,10 +1,8 @@
 const { contactsService } = require("../../models/service");
 
 const listContacts = async (req, res) => {
-  const { page = 1, limit = 4 } = req.query;
-  const skip = (page - 1) * limit;
-
-  const contacts = await contactsService.listContacts(skip, limit);
+  const { _id: owner } = req.user;
+  const contacts = await contactsService.listContacts(req.query, owner);
   res.status(200).json(contacts);
 };
 

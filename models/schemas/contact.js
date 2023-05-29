@@ -8,7 +8,7 @@ const contactSchema = new Schema(
     },
     email: {
       type: String,
-      require: true,
+      required: true,
       match: /.+@.+\..+/i,
     },
     phone: {

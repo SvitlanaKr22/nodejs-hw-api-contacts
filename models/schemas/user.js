@@ -14,6 +14,10 @@ const loginSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const subscrptSchema = Joi.object({
+  subscription: Joi.any().valid("starter", "pro", "business").required(),
+});
+
 const schema = new Schema(
   {
     password: {
@@ -44,5 +48,6 @@ const User = model("User", schema);
 module.exports = {
   userSchema,
   loginSchema,
+  subscrptSchema,
   User,
 };
