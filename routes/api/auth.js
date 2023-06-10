@@ -1,6 +1,6 @@
 const express = require("express");
 const authController = require("../../controllers/users");
-const { authenticate } = require("../../middlewares");
+const { authenticate, upload } = require("../../middlewares");
 
 const router = express.Router();
 
@@ -13,5 +13,12 @@ router.post("/logout", authenticate, authController.logoutUser);
 router.get("/current", authenticate, authController.currentUser);
 
 router.patch("/", authenticate, authController.updateUser);
+
+router.patch(
+  "/avatars",
+  authenticate,
+  upload.single("avatarURL"),
+  authController.updateAvatar
+);
 
 module.exports = router;

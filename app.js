@@ -12,6 +12,7 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
+app.use(express.static("public"));
 
 app.use("/api/users", authRouter);
 app.use("/api/contacts", contactsRouter);
@@ -25,3 +26,7 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
+
+//http://localhost:3000/avatars/avatarhw05.jpg
+
+//http://localhost:3000/avatars/64846bf0a4793431dfb9eb65-avatarhw05_25.jpg
