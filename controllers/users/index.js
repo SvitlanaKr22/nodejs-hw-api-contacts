@@ -3,6 +3,7 @@ const loginUser = require("./loginUser");
 const logoutUser = require("./logoutUser");
 const currentUser = require("./currentUser");
 const updateUser = require("./updateUser");
+const updateAvatar = require("./updateAvatar");
 const { controllerWrapper } = require("../../decorators/controllerWrapper");
 
 module.exports = {
@@ -11,4 +12,5 @@ module.exports = {
   logoutUser: controllerWrapper(logoutUser),
   currentUser: controllerWrapper(currentUser),
   updateUser: controllerWrapper(updateUser),
+  updateAvatar: controllerWrapper(updateAvatar),
 };

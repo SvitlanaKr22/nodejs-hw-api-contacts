@@ -6,9 +6,13 @@ require("dotenv").config();
 const saltRounds = 10;
 const { SECRET_KEY } = process.env;
 
-async function addUser({ password, ...data }) {
+async function addUser({ password, ...data }, avatar) {
   const passwordDB = await bcrypt.hash(password, saltRounds);
-  return await User.create({ password: passwordDB, ...data });
+  return await User.create({
+    password: passwordDB,
+    ...data,
+    avatarURL: avatar,
+  });
 }
 
 async function findEmailUser(email) {
@@ -44,6 +48,9 @@ async function updateSubscription(id, subscription) {
   return await User.findByIdAndUpdate(id, { subscription: subscription });
 }
 
+async function updateAvatar(id, avatarURL) {
+  return await User.findByIdAndUpdate(id, { avatarURL: avatarURL });
+}
 module.exports = {
   addUser,
   findEmailUser,
@@ -53,4 +60,5 @@ module.exports = {
   findUser,
   deleteToken,
   updateSubscription,
+  updateAvatar,
 };
