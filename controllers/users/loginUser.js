@@ -14,6 +14,9 @@ const loginUser = async (req, res, next) => {
   const user = await usersService.findEmailUser(email);
 
   if (!user) throw HttpError(401);
+
+  if (!user.verify) throw HttpError(401, "Email not verified!");
+
   const isPassword = await usersService.controlPassword(
     password,
     user.password
