@@ -18,6 +18,10 @@ const subscrptSchema = Joi.object({
   subscription: Joi.any().valid("starter", "pro", "business").required(),
 });
 
+const verificationSchema = Joi.object({
+  email: Joi.string().pattern(emailRegExp).required(),
+});
+
 const schema = new Schema(
   {
     password: {
@@ -61,5 +65,6 @@ module.exports = {
   userSchema,
   loginSchema,
   subscrptSchema,
+  verificationSchema,
   User,
 };

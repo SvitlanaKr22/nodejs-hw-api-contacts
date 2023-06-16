@@ -1,7 +1,9 @@
 const { usersService } = require("../../models/service");
+const { HttpError } = require("../../helpers");
 
 const verifyEmailUser = async (req, res, next) => {
   const { verificationToken } = req.params;
+
   const user = await usersService.findOneUser({ verificationToken });
 
   if (!user) {
@@ -12,7 +14,7 @@ const verifyEmailUser = async (req, res, next) => {
 
   const verifyUser = {
     verify: true,
-    verificationCode: "",
+    verificationToken: null,
   };
 
   await usersService.verifyUser(id, verifyUser);
